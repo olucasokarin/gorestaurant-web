@@ -2,6 +2,7 @@ import React, { useRef, useCallback } from 'react';
 
 import { FiCheckSquare } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
+// import { findDOMNode } from 'react-dom';
 import { Form } from './styles';
 import Modal from '../Modal';
 import Input from '../Input';
@@ -40,8 +41,15 @@ const ModalEditFood: React.FC<IModalProps> = ({
   const handleSubmit = useCallback(
     async (data: IEditFoodData) => {
       // EDIT A FOOD PLATE AND CLOSE THE MODAL
+
+      const food = Object.assign(data, {
+        available: editingFood.available,
+        id: editingFood.id,
+      });
+      handleUpdateFood(data);
+      setIsOpen();
     },
-    [handleUpdateFood, setIsOpen],
+    [handleUpdateFood, setIsOpen, editingFood],
   );
 
   return (
